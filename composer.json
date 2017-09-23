@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Mitake\\": "src/"
+      "Mitake\\": "src/Mitake/"
     }
   },
   "autoload-dev": {
