@@ -2,7 +2,7 @@
 
 namespace Mitake;
 
-use Exception\BadResponseException;
+use Mitake\Exception\BadResponseException;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;

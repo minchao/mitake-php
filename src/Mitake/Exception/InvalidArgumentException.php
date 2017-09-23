@@ -1,6 +1,6 @@
 <?php
 
-namespace Exception;
+namespace Mitake\Exception;
 
 /**
  * Class InvalidArgumentException
