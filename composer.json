@@ -1,7 +1,7 @@
 {
   "name": "minchao/mitake-php",
   "description": "A Mitake SMS library for PHP (Unofficial)",
-  "keyword": ["mitake", "sms", "api"],
+  "keywords": ["mitake", "sms", "api"],
   "homepage": "https://github.com/minchao/mitake-php",
   "type": "library",
   "license": "MIT",
