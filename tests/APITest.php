@@ -77,11 +77,11 @@ AccountPoint=99';
         $httpClient = $this->createMockHttpClient($resp);
 
         $client = Client::create('', '', $httpClient);
-        $actual = $client->getAPI()->sendBatch([
+        $actual = $client->getAPI()->send(
             (new Message\Message())
                 ->setDstaddr('0987654321')
-                ->setSmbody('Test 1'),
-        ]);
+                ->setSmbody('Test 1')
+        );
 
         $expected = (new Message\Response())
             ->addResult(
