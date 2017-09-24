@@ -4,6 +4,7 @@ namespace Mitake\Tests;
 
 use Mitake\Client;
 use Mitake\Message;
+use Mitake\Exception\InvalidArgumentException;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
@@ -58,6 +59,16 @@ AccountPoint=98';
             ->setAccountPoint(98);
 
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testSendBatchWithInvalidArgumentException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $httpClient = $this->createMockHttpClient(new Response(200));
+
+        $client = Client::create('', '', $httpClient);
+        $client->getAPI()->sendBatch(['TEST']);
     }
 
     public function testSend()
