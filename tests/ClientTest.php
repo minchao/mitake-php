@@ -38,6 +38,17 @@ class ClientTest extends TestCase
         $client->send(new Request('GET', '/'));
     }
 
+    public function testSendWithUnexpectedStatusCode()
+    {
+        $this->expectException(BadResponseException::class);
+        $this->expectExceptionMessage('unexpected status code');
+
+        $httpClient = $this->createMockHttpClient(new Response(301));
+
+        $client = Client::create('', '', $httpClient);
+        $client->send(new Request('GET', '/'));
+    }
+
     public function testBuildQuery()
     {
         $client = new Client('username', 'password', new \GuzzleHttp\Client());
