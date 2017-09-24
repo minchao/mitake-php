@@ -2,10 +2,14 @@
 
 namespace Mitake;
 
+use function GuzzleHttp\Psr7\build_query;
+use function GuzzleHttp\Psr7\uri_for;
 use Mitake\Exception\BadResponseException;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * Class Client
@@ -13,11 +17,11 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Client
 {
-    const LIBRARY_VERSION = "0.0.1";
+    const LIBRARY_VERSION = '0.0.2';
 
-    const DEFAULT_BASE_URL = "https://smexpress.mitake.com.tw:9601/";
+    const DEFAULT_BASE_URL = 'https://smexpress.mitake.com.tw:9601';
 
-    const DEFAULT_USER_AGENT = "mitake-php/" . self::LIBRARY_VERSION;
+    const DEFAULT_USER_AGENT = 'mitake-php/' . self::LIBRARY_VERSION;
 
     /**
      * @var ClientInterface
@@ -40,7 +44,7 @@ class Client
     protected $userAgent;
 
     /**
-     * @var string
+     * @var UriInterface
      */
     protected $baseURL;
 
@@ -61,7 +65,7 @@ class Client
         $this->username = $username;
         $this->password = $password;
         $this->userAgent = self::DEFAULT_USER_AGENT;
-        $this->baseURL = self::DEFAULT_BASE_URL;
+        $this->baseURL = new Uri(self::DEFAULT_BASE_URL);
         $this->httpClient = $httpClient;
         $this->api = new API($this);
     }
@@ -99,7 +103,7 @@ class Client
     }
 
     /**
-     * @return string
+     * @return UriInterface
      */
     public function getBaseURL()
     {
@@ -107,10 +111,10 @@ class Client
     }
 
     /**
-     * @param string $baseURL
+     * @param UriInterface $baseURL
      * @return $this
      */
-    public function setBaseURL($baseURL)
+    public function setBaseURL(UriInterface $baseURL)
     {
         $this->baseURL = $baseURL;
 
@@ -136,12 +140,12 @@ class Client
      * Create an API request
      *
      * @param string $method
-     * @param string $url
+     * @param string|UriInterface $uri
      * @param string|null $contentType
      * @param string|null $body
      * @return Request
      */
-    public function newRequest($method, $url, $contentType = null, $body = null)
+    public function newRequest($method, $uri, $contentType = null, $body = null)
     {
         $headers = [
             'User-Agent' => $this->userAgent,
@@ -152,26 +156,37 @@ class Client
 
         return new Request(
             $method,
-            $this->baseURL . $url,
+            $uri,
             $headers,
             $body
         );
     }
 
     /**
-     * Return the query string with authentication parameters
+     * Return the uri with authentication parameters and query string
      *
-     * @param array $params
-     * @return string
+     * @param string|UriInterface $uri
+     * @param array $params Query string parameters
+     *
+     * @return UriInterface
      */
-    public function buildQuery(array $params = [])
+    public function buildUriWithQuery($uri, array $params = [])
     {
+        $uri = uri_for($uri);
+
+        if (!Uri::isAbsolute($uri)) {
+            $uri = $uri->withScheme($this->baseURL->getScheme())
+                ->withUserInfo($this->baseURL->getUserInfo())
+                ->withHost($this->baseURL->getHost())
+                ->withPort($this->baseURL->getPort());
+        }
+
         $default = [
             'username' => $this->username,
             'password' => $this->password,
         ];
 
-        return '?' . http_build_query(array_merge($default, $params));
+        return $uri->withQuery(build_query(array_merge($default, $params)));
     }
 
     /**

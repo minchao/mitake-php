@@ -4,6 +4,7 @@ namespace Mitake\Tests;
 
 use Mitake\Client;
 use Mitake\Exception\BadResponseException;
+use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +24,7 @@ class ClientTest extends TestCase
         $this->assertEquals(Client::DEFAULT_USER_AGENT, $client->getUserAgent());
         $this->assertEquals('UserAgent', $client->setUserAgent('UserAgent')->getUserAgent());
         $this->assertEquals(Client::DEFAULT_BASE_URL, $client->getBaseURL());
-        $this->assertEquals('BaseURL', $client->setBaseURL('BaseURL')->getBaseURL());
+        $this->assertEquals(new Uri('BaseURL'), $client->setBaseURL(new Uri('BaseURL'))->getBaseURL());
     }
 
     public function testSendWithEmptyResponseBody()
@@ -41,10 +42,13 @@ class ClientTest extends TestCase
     {
         $client = new Client('username', 'password', new \GuzzleHttp\Client());
 
-        $this->assertEquals('?username=username&password=password', $client->buildQuery([]));
         $this->assertEquals(
-            '?username=username&password=password&encoding=UTF8',
-            $client->buildQuery(['encoding' => 'UTF8'])
+            $client->getBaseURL()->withQuery('username=username&password=password'),
+            $client->buildUriWithQuery('', [])
+        );
+        $this->assertEquals(
+            $client->getBaseURL()->withQuery('username=username&password=password&encoding=UTF8'),
+            $client->buildUriWithQuery('', ['encoding' => 'UTF8'])
         );
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Mitake;
 
-use Mitake\Exception\InvalidArgumentException;
 use Mitake\Message;
+use Mitake\Exception\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -49,7 +49,7 @@ class API
 
         $request = $this->client->newRequest(
             'POST',
-            '/SmSendPost.asp' . $this->client->buildQuery(['encoding' => 'UTF8']),
+            $this->client->buildUriWithQuery('/SmSendPost.asp', ['encoding' => 'UTF8']),
             'text/plain',
             $body
         );
@@ -79,7 +79,7 @@ class API
     {
         $request = $this->client->newRequest(
             'GET',
-            '/SmQueryGet.asp' . $this->client->buildQuery()
+            $this->client->buildUriWithQuery('/SmQueryGet.asp')
         );
 
         $response = $this->client->send($request);
@@ -99,7 +99,7 @@ class API
     {
         $request = $this->client->newRequest(
             'GET',
-            'SmQueryGet.asp' . $this->client->buildQuery(['msgid' => implode(",", $ids)])
+            $this->client->buildUriWithQuery('/SmQueryGet.asp', ['msgid' => implode(',', $ids)])
         );
 
         $response = $this->client->send($request);
@@ -115,7 +115,7 @@ class API
     {
         $request = $this->client->newRequest(
             'GET',
-            'SmCancel.asp' . $this->client->buildQuery(['msgid' => implode(",", $ids)])
+            $this->client->buildUriWithQuery('/SmCancel.asp', ['msgid' => implode(",", $ids)])
         );
 
         $response = $this->client->send($request);
