@@ -45,6 +45,11 @@ class Client
     protected $baseURL;
 
     /**
+     * @var API
+     */
+    protected $api;
+
+    /**
      * Client constructor.
      *
      * @param string $username
@@ -58,6 +63,7 @@ class Client
         $this->userAgent = self::DEFAULT_USER_AGENT;
         $this->baseURL = self::DEFAULT_BASE_URL;
         $this->httpClient = $httpClient;
+        $this->api = new API($this);
     }
 
     /**
@@ -187,5 +193,13 @@ class Client
 
         // Mitake API always return status code 200
         throw new BadResponseException(sprintf('unexpected status code: %d', $statusCode));
+    }
+
+    /**
+     * @return API
+     */
+    public function getAPI()
+    {
+        return $this->api;
     }
 }
