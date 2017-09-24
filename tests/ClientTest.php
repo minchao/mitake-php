@@ -3,6 +3,9 @@
 namespace Mitake\Tests;
 
 use Mitake\Client;
+use Mitake\Exception\BadResponseException;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -11,6 +14,8 @@ use PHPUnit\Framework\TestCase;
  */
 class ClientTest extends TestCase
 {
+    use HelperTrait;
+
     public function testCreate()
     {
         $client = new Client('username', 'password', new \GuzzleHttp\Client());
@@ -19,6 +24,17 @@ class ClientTest extends TestCase
         $this->assertEquals('UserAgent', $client->setUserAgent('UserAgent')->getUserAgent());
         $this->assertEquals(Client::DEFAULT_BASE_URL, $client->getBaseURL());
         $this->assertEquals('BaseURL', $client->setBaseURL('BaseURL')->getBaseURL());
+    }
+
+    public function testSendWithEmptyResponseBody()
+    {
+        $this->expectException(BadResponseException::class);
+        $this->expectExceptionMessage('unexpected empty body');
+
+        $httpClient = $this->createMockHttpClient(new Response(200));
+
+        $client = Client::create('', '', $httpClient);
+        $client->send(new Request('GET', '/'));
     }
 
     public function testBuildQuery()
