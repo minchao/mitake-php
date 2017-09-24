@@ -22,5 +22,11 @@
     "psr-4": {
       "Mitake\\Tests\\": "tests/"
     }
+  },
+  "scripts": {
+    "test": [
+      "php vendor/bin/phpcs",
+      "php vendor/bin/phpunit"
+    ]
   }
 }
