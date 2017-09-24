@@ -44,8 +44,6 @@ AccountPoint=98';
                 ->setSmbody('Test 2'),
         ]);
 
-        $this->assertEquals('POST', 'POST');
-
         $expected = (new Message\Response())
             ->addResult(
                 (new Message\Result())
