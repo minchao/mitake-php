@@ -135,9 +135,11 @@ class Message
      */
     public function toINI()
     {
+        $smBody = str_replace("\n", chr(6), $this->smbody);
+
         $ini = '';
         $ini .= "dstaddr={$this->dstaddr}\n";
-        $ini .= "smbody={$this->smbody}\n";
+        $ini .= "smbody={$smBody}\n";
         if (!empty($this->dlvtime)) {
             $ini .= "dlvtime={$this->dlvtime}\n";
         }
