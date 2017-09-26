@@ -55,4 +55,15 @@ class Result
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'msgid' => $this->msgid,
+            'statuscode' => $this->statuscode->__toString(),
+        ];
+    }
 }

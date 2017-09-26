@@ -66,4 +66,17 @@ class Response
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'results' => array_map(function (Result $result) {
+                return $result->toArray();
+            }, $this->results),
+            'accountPoint' => $this->accountPoint,
+        ];
+    }
 }
