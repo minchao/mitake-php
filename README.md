@@ -75,7 +75,27 @@ $resp = $client->getAPI()->sendBatch([$message1, $message2]);
 $resp = $client->getAPI()->queryMessageStatus(['MESSAGE_ID1', 'MESSAGE_ID2]);
 ```
 
-## 測試
+## 開發
+
+### 開發工具
+
+本專案提供 Command Line Developer Tools，供您在開發時作為測試工具使用，使用範例如下：
+
+```
+$ bin/mitake send -u USERNAME -p PASSWORD -d 0987654321 -b 'Hello, 世界'
+{
+    "results": [
+        {
+            "msgid": "1234567890",
+            "statuscode": "1"
+        }
+    ],
+    "accountPoint": "999"
+}
+
+```
+
+### 執行測試
 
 執行 phpcs 與 phpunit 測試
 
