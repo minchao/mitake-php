@@ -166,7 +166,7 @@ class API
     {
         $resp = new Message\StatusResponse();
 
-        $lines = explode("\n", $this->getBodyContents($response));
+        $lines = explode("\n", trim($this->getBodyContents($response)));
         foreach ($lines as $line) {
             $line = trim($line);
             list($msgID, $statusCode, $statusTime) = explode("\t", $line);
@@ -190,7 +190,7 @@ class API
     {
         $resp = new Message\StatusResponse();
 
-        $lines = explode("\n", $this->getBodyContents($response));
+        $lines = explode("\n", trim($this->getBodyContents($response)));
         foreach ($lines as $line) {
             $line = trim($line);
             list($msgID, $statusCode) = explode('=', $line);
