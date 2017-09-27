@@ -81,7 +81,7 @@ class StatusCode
     public function __construct($code)
     {
         if (!array_key_exists($code, self::$messages)) {
-            throw new InvalidArgumentException(sprintf('unexpected status code: %s', $code));
+            throw new InvalidArgumentException(sprintf('unexpected message status code: %s', $code));
         }
 
         $this->code = $code;
