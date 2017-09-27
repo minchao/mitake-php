@@ -37,8 +37,9 @@ class App extends Application
         ]);
 
         $this->addCommands([
-            new Command\Send(),
             new Command\Balance(),
+            new Command\Send(),
+            new Command\MessageStatus(),
         ]);
     }
 }

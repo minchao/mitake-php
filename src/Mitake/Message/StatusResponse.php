@@ -42,4 +42,16 @@ class StatusResponse
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'statuses' => array_map(function (Status $status) {
+                return $status->toArray();
+            }, $this->getStatuses()),
+        ];
+    }
 }

@@ -31,4 +31,15 @@ class Status extends Result
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $arr = parent::toArray();
+        $arr['statustime'] = $this->getStatustime();
+
+        return $arr;
+    }
 }
