@@ -20,7 +20,7 @@ class Send extends Command
     protected function configure()
     {
         $this->setName('send')
-            ->setDescription('Send an SMS')
+            ->setDescription('Send an message')
             ->addOption(
                 '--dstaddr',
                 '-d',
