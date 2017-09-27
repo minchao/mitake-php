@@ -79,7 +79,38 @@ $resp = $client->getAPI()->queryMessageStatus(['MESSAGE_ID1', 'MESSAGE_ID2]);
 
 ### 開發工具
 
-本專案提供 Command Line Developer Tools，供您在開發時作為測試工具使用，使用範例如下：
+本專案提供 Command Line Developer Tools，供您在開發時作為測試工具使用
+
+指令：
+
+```
+$ bin/mitake
+Developer Tools
+
+Usage:
+  command [options] [arguments]
+
+Options:
+  -h, --help                       Display this help message
+  -q, --quiet                      Do not output any message
+  -V, --version                    Display this application version
+      --ansi                       Force ANSI output
+      --no-ansi                    Disable ANSI output
+  -n, --no-interaction             Do not ask any interactive question
+  -u, --username[=USERNAME]        Mitake Username
+  -p, --password[=PASSWORD]        Mitake Password
+  -c, --credentials[=CREDENTIALS]  Mitake Credentials
+  -v|vv|vvv, --verbose             Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Available commands:
+  balance  Retrieve your account balance
+  help     Displays help for a command
+  list     Lists commands
+  send     Send an message
+  status   Fetch the status of specific messages
+```
+
+使用範例如下：
 
 ```
 $ bin/mitake send -u USERNAME -p PASSWORD -d 0987654321 -b 'Hello, 世界'
@@ -92,7 +123,6 @@ $ bin/mitake send -u USERNAME -p PASSWORD -d 0987654321 -b 'Hello, 世界'
     ],
     "accountPoint": "999"
 }
-
 ```
 
 ### 執行測試
