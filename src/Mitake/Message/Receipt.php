@@ -182,4 +182,20 @@ class Receipt
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'msgid' => $this->msgid,
+            'dstaddr' => $this->dstaddr,
+            'dlvtime' => $this->dlvtime,
+            'donetime' => $this->donetime,
+            'statuscode' => (is_null($this->statuscode)) ? null : $this->statuscode->__toString(),
+            'statusstr' => $this->statusstr,
+            'StatusFlag' => $this->statusFlag,
+        ];
+    }
 }
