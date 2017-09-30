@@ -1,6 +1,6 @@
 <?php
 
-require 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use function GuzzleHttp\Psr7\parse_query;
 use Mitake\Message\Receipt;

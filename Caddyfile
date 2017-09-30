@@ -1,0 +1,14 @@
+0.0.0.0
+
+root /srv/webhook
+
+fastcgi / 127.0.0.1:9000 php
+startup php-fpm7
+
+rewrite / {
+    regexp .*
+    to /index.php
+}
+
+log stdout
+errors stdout
