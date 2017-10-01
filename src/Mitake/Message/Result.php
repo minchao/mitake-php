@@ -63,7 +63,7 @@ class Result
     {
         return [
             'msgid' => $this->msgid,
-            'statuscode' => $this->statuscode->__toString(),
+            'statuscode' => (is_null($this->statuscode)) ? null : $this->statuscode->__toString(),
         ];
     }
 }
