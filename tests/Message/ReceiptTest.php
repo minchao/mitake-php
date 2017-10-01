@@ -12,7 +12,10 @@ use PHPUnit\Framework\TestCase;
  */
 class ReceiptTest extends TestCase
 {
-    public function testToArray()
+    /**
+     * @return Receipt
+     */
+    public function testConstruct()
     {
         $receipt = (new Receipt())
             ->setMsgid('1234567890')
@@ -23,6 +26,23 @@ class ReceiptTest extends TestCase
             ->setStatusstr('DELIVRD')
             ->setStatusFlag('4');
 
+        $this->assertEquals('1234567890', $receipt->getMsgid());
+        $this->assertEquals('0987654321', $receipt->getDstaddr());
+        $this->assertEquals('20171001112328', $receipt->getDlvtime());
+        $this->assertEquals('20171001112345', $receipt->getDonetime());
+        $this->assertEquals(new StatusCode('0'), $receipt->getStatuscode());
+        $this->assertEquals('DELIVRD', $receipt->getStatusstr());
+        $this->assertEquals('4', $receipt->getStatusFlag());
+
+        return $receipt;
+    }
+
+    /**
+     * @depends testConstruct
+     * @param $obj
+     */
+    public function testToArray($obj)
+    {
         $expected = [
             'msgid' => '1234567890',
             'dstaddr' => '0987654321',
@@ -33,6 +53,6 @@ class ReceiptTest extends TestCase
             'StatusFlag' => '4',
         ];
 
-        $this->assertEquals($expected, $receipt->toArray());
+        $this->assertEquals($expected, $obj->toArray());
     }
 }

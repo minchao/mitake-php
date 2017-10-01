@@ -11,7 +11,10 @@ use PHPUnit\Framework\TestCase;
  */
 class MessageTest extends TestCase
 {
-    public function testToINI()
+    /**
+     * @return Message
+     */
+    public function testConstruct()
     {
         $smBody = 'Hello,' . chr(6) . '世界';
 
@@ -22,6 +25,23 @@ class MessageTest extends TestCase
             ->setVldtime('120')
             ->setResponse('https://example.com');
 
+        $this->assertEquals('0987654321', $message->getDstaddr());
+        $this->assertEquals($smBody, $message->getSmbody());
+        $this->assertEquals('60', $message->getDlvtime());
+        $this->assertEquals('120', $message->getVldtime());
+        $this->assertEquals('https://example.com', $message->getResponse());
+
+        return $message;
+    }
+
+    /**
+     * @depends testConstruct
+     * @param Message $obj
+     */
+    public function testToINI($obj)
+    {
+        $smBody = 'Hello,' . chr(6) . '世界';
+
         $expected = <<<EOT
 dstaddr=0987654321
 smbody=$smBody
@@ -30,8 +50,7 @@ vldtime=120
 response=https://example.com
 
 EOT;
-        $actual = $message->toINI();
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $obj->toINI());
     }
 }

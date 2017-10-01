@@ -27,6 +27,10 @@ class StatusResponseTest extends TestCase
 
         $this->assertEquals([$s], $r->getStatuses());
 
+        $r->setStatuses([$s]);
+
+        $this->assertEquals([$s], $r->getStatuses());
+
         return $r;
     }
 

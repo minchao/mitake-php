@@ -26,6 +26,11 @@ class ResponseTest extends TestCase
             ->setAccountPoint(99);
 
         $this->assertEquals([$r], $resp->getResults());
+        $this->assertEquals(99, $resp->getAccountPoint());
+
+        $resp->setResults([$r]);
+
+        $this->assertEquals([$r], $resp->getResults());
 
         return $resp;
     }
