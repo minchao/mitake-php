@@ -151,6 +151,26 @@ $ bin/mitake send -u USERNAME -p PASSWORD -d 0987654321 -b 'Hello, 世界'
 }
 ```
 
+### 使用 Docker Compose 啟動 webhook 服務
+
+請設定環境變數 VIRTUAL_HOST、LETSENCRYPT_HOST 與 LETSENCRYPT_EMAIL，Docker Compose 會在本機的 443 Port 上啟動 webhook 服務，
+並自動透過 Let's Encrypt 建立 SSL 憑證
+
+Command:
+
+```
+$ VIRTUAL_HOST=your.domain.name \
+  LETSENCRYPT_HOST=your.domain.name \
+  LETSENCRYPT_EMAIL=username@mail.com \
+  docker-compose up
+```
+
+Logs:
+
+```
+webhook | 172.18.0.3 - - [01/Oct/2017:05:17:34 +0000] "GET /callback?msgid=1234567890&dstaddr=0987654321&dlvtime=20171001112328&donetime=20171001112345&statusstr=DELIVRD&statuscode=0&StatusFlag=4 HTTP/2.0" 200 156 "-" "Mozilla/5.0"
+```
+
 ### 執行測試
 
 執行 phpcs 與 phpunit 測試

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-docker run --rm \
-   -v $PWD:/srv \
-   -v $PWD/Caddyfile:/etc/Caddyfile \
-   -p 8080:2015 \
-   abiosoft/caddy:php
