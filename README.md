@@ -75,15 +75,15 @@ $resp = $client->getAPI()->sendBatch([$message1, $message2]);
 $resp = $client->getAPI()->queryMessageStatus(['MESSAGE_ID1', 'MESSAGE_ID2]);
 ```
 
-### 使用 webhook 接收傳送狀態回報
+### 使用 webhook 接收傳送狀態
 
-發送簡訊時若有設定 response 網址，簡訊伺服器會在發送狀態更新時以 HTTP GET 方法通知指定的 response 網址，
-您可參考 [webhook](webhook/index.php) 的範例來接收簡訊傳送狀態回報
+發送簡訊時若有設定 response 網址，簡訊伺服器就會在發送狀態更新時以 HTTP GET 方法通知指定的 response 網址，
+您可參考 [webhook](webhook/index.php) 中的範例來接收簡訊傳送狀態
 
 簡訊設定 response 網址：
 
 ```php
-$message->setResponse('https://sms.example.com/callback');
+$message->setResponse('https://your.domain.name/callback');
 ``` 
 
 建立 webhook：
