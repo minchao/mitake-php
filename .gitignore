@@ -1,3 +1,6 @@
-.idea/
+certs/
 vendor/
 composer.lock
+credentials.json
+
+.idea/
