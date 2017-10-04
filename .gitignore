@@ -1,6 +1,13 @@
 certs/
-vendor/
-composer.lock
 credentials.json
 
+# Composer files
+vendor/
+composer.lock
+
+# PHPUnit
+# see https://stackoverflow.com/a/44764078
+phpunit.xml
+
+# IntelliJ IDEA project files
 .idea/
