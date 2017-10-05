@@ -1,6 +1,7 @@
 # mitake-php
 
 [![Build Status](https://travis-ci.org/minchao/mitake-php.svg?branch=master)](https://travis-ci.org/minchao/mitake-php)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1b7b6ee48e884e6aa48d76605871ba83)](https://www.codacy.com/app/minchao/mitake-php?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=minchao/mitake-php&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/minchao/mitake-php/branch/master/graph/badge.svg)](https://codecov.io/gh/minchao/mitake-php)
 [![Latest Stable Version](https://poser.pugx.org/minchao/mitake-php/v/stable)](https://packagist.org/packages/minchao/mitake-php)
 [![Latest Unstable Version](https://poser.pugx.org/minchao/mitake-php/v/unstable)](https://packagist.org/packages/minchao/mitake-php)
