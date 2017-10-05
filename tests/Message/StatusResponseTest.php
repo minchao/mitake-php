@@ -18,20 +18,20 @@ class StatusResponseTest extends TestCase
      */
     public function testConstruct()
     {
-        $s = (new Status())
+        $status = (new Status())
             ->setMsgid('1234567890')
             ->setStatuscode(new StatusCode('4'))
             ->setStatustime('20171001112328');
-        $r = (new StatusResponse())
-            ->addStatus($s);
+        $resp = (new StatusResponse())
+            ->addStatus($status);
 
-        $this->assertEquals([$s], $r->getStatuses());
+        $this->assertEquals([$status], $resp->getStatuses());
 
-        $r->setStatuses([$s]);
+        $resp->setStatuses([$status]);
 
-        $this->assertEquals([$s], $r->getStatuses());
+        $this->assertEquals([$status], $resp->getStatuses());
 
-        return $r;
+        return $resp;
     }
 
     /**

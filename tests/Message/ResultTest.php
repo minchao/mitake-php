@@ -13,14 +13,14 @@ class ResultTest extends TestCase
      */
     public function testConstruct()
     {
-        $r = (new Result())
+        $result = (new Result())
             ->setMsgid('1234567890')
             ->setStatuscode(new StatusCode('4'));
 
-        $this->assertEquals('1234567890', $r->getMsgid());
-        $this->assertEquals(new StatusCode('4'), $r->getStatuscode());
+        $this->assertEquals('1234567890', $result->getMsgid());
+        $this->assertEquals(new StatusCode('4'), $result->getStatuscode());
 
-        return $r;
+        return $result;
     }
 
     /**

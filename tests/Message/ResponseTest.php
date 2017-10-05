@@ -18,19 +18,19 @@ class ResponseTest extends TestCase
      */
     public function testConstruct()
     {
-        $r = (new Result())
+        $result = (new Result())
             ->setMsgid('1234567890')
             ->setStatuscode(new StatusCode('4'));
         $resp = (new Response())
-            ->addResult($r)
+            ->addResult($result)
             ->setAccountPoint(99);
 
-        $this->assertEquals([$r], $resp->getResults());
+        $this->assertEquals([$result], $resp->getResults());
         $this->assertEquals(99, $resp->getAccountPoint());
 
-        $resp->setResults([$r]);
+        $resp->setResults([$result]);
 
-        $this->assertEquals([$r], $resp->getResults());
+        $this->assertEquals([$result], $resp->getResults());
 
         return $resp;
     }
