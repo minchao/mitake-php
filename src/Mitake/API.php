@@ -144,7 +144,7 @@ class API
 
         $resp = new Message\Response();
 
-        foreach ($iniArray as $key => $msg) {
+        foreach ($iniArray as $msg) {
             $result = new Message\Result();
             $result->setMsgid($msg['msgid'])
                 ->setStatuscode(new Message\StatusCode($msg['statuscode']));
