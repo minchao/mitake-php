@@ -1,35 +1,51 @@
 {
   "name": "minchao/mitake-php",
   "description": "A Mitake SMS SDK for PHP (Unofficial)",
-  "keywords": ["mitake", "api", "sms", "sms-sdk"],
-  "homepage": "https://github.com/minchao/mitake-php",
   "type": "library",
+  "keywords": [
+    "mitake",
+    "api",
+    "sms",
+    "sms-sdk"
+  ],
+  "homepage": "https://github.com/minchao/mitake-php",
   "license": "MIT",
+  "support": {
+    "issues": "https://github.com/minchao/mitake-php/issues"
+  },
   "require": {
     "php": ">=5.6",
     "guzzlehttp/guzzle": "^6.3"
   },
   "require-dev": {
+    "codacy/coverage": "^1.4",
     "phpunit/phpunit": "^5.7",
+    "slim/slim": "^3.9",
     "squizlabs/php_codesniffer": "^3.1",
-    "symfony/console": "^3.3",
-    "slim/slim": "^3.8"
+    "symfony/console": "^3.3"
   },
   "autoload": {
     "psr-4": {
-      "Mitake\\": "src/Mitake/"
+      "Mitake\\": "src/Mitake"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Mitake\\Console\\": "console/",
-      "Mitake\\Tests\\": "tests/"
+      "Mitake\\Console\\": "console",
+      "Mitake\\Tests\\": "tests"
     }
   },
+  "config": {
+    "sort-packages": true
+  },
   "scripts": {
-    "test": [
-      "php vendor/bin/phpcs",
-      "php vendor/bin/phpunit"
-    ]
+    "check": [
+      "@cs-check",
+      "@test"
+    ],
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "test": "phpunit",
+    "coverage": "phpunit --coverage-clover=coverage.xml"
   }
 }

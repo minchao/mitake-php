@@ -10,8 +10,8 @@ sudo: false
 before_install:
   - composer install
 script:
-  - vendor/bin/phpcs
-  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - composer run cs-check
+  - composer run coverage
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
