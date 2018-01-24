@@ -76,6 +76,14 @@ $resp = $client->sendBatch([$message1, $message2]);
 $resp = $client->queryMessageStatus(['MESSAGE_ID1', 'MESSAGE_ID2]);
 ```
 
+### 取消預約發送簡訊
+
+取消時請帶入簡訊 msgid
+
+```php
+$resp = $client->cancelMessageStatus(['MESSAGE_ID1', 'MESSAGE_ID2]);
+```
+
 ### 使用 webhook 接收傳送狀態
 
 發送簡訊時若有設定 response 網址，簡訊伺服器就會在發送狀態更新時以 HTTP GET 方法通知指定的 response 網址，
