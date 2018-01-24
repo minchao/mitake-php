@@ -32,9 +32,9 @@ composer require minchao/mitake-php
 ```php
 <?php
 
-require_once(__DIR__ . '/vendor/autoload.php');
+require_once __DIR__ . '/vendor/autoload.php';
 
-$client = \Mitake\Client::create('USERNAME', 'PASSWORD', new \GuzzleHttp\Client());
+$client = new \Mitake\Client('USERNAME', 'PASSWORD');
 ```
 
 ## 範例

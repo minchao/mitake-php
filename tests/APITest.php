@@ -35,7 +35,7 @@ AccountPoint=98';
 
         $httpClient = $this->createMockHttpClient($resp);
 
-        $client = Client::create('', '', $httpClient);
+        $client = new Client('', '', $httpClient);
         $actual = $client->sendBatch([
             (new Message\Message())
                 ->setDstaddr('0987654321')
@@ -67,7 +67,7 @@ AccountPoint=98';
 
         $httpClient = $this->createMockHttpClient(new Response(200));
 
-        $client = Client::create('', '', $httpClient);
+        $client = new Client('', '', $httpClient);
         $client->sendBatch(['TEST']);
     }
 
@@ -87,7 +87,7 @@ AccountPoint=99';
 
         $httpClient = $this->createMockHttpClient($resp);
 
-        $client = Client::create('', '', $httpClient);
+        $client = new Client('', '', $httpClient);
         $actual = $client->send(
             (new Message\Message())
                 ->setDstaddr('0987654321')
@@ -117,7 +117,7 @@ AccountPoint=99';
 
         $httpClient = $this->createMockHttpClient($resp);
 
-        $client = Client::create('', '', $httpClient);
+        $client = new Client('', '', $httpClient);
         $actual = $client->queryAccountPoint();
 
         $this->assertEquals(100, $actual);
@@ -137,7 +137,7 @@ AccountPoint=99';
 
         $httpClient = $this->createMockHttpClient($resp);
 
-        $client = Client::create('', '', $httpClient);
+        $client = new Client('', '', $httpClient);
         $actual = $client->queryMessageStatus(['1010079522', '1010079523']);
 
         $expected = (new Message\StatusResponse())
@@ -171,7 +171,7 @@ AccountPoint=99';
 
         $httpClient = $this->createMockHttpClient($resp);
 
-        $client = Client::create('', '', $httpClient);
+        $client = new Client('', '', $httpClient);
         $actual = $client->cancelMessageStatus(['1010079522', '1010079523']);
 
         $expected = (new Message\StatusResponse())

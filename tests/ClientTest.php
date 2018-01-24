@@ -43,7 +43,7 @@ class ClientTest extends TestCase
 
         $httpClient = $this->createMockHttpClient(new Response(200));
 
-        $client = Client::create('', '', $httpClient);
+        $client = new Client('', '', $httpClient);
         $client->sendRequest(new Request('GET', '/'));
     }
 
@@ -54,13 +54,13 @@ class ClientTest extends TestCase
 
         $httpClient = $this->createMockHttpClient(new Response(301));
 
-        $client = Client::create('', '', $httpClient);
+        $client = new Client('', '', $httpClient);
         $client->sendRequest(new Request('GET', '/'));
     }
 
     public function testBuildQuery()
     {
-        $client = new Client('username', 'password', new \GuzzleHttp\Client());
+        $client = new Client('username', 'password');
 
         $this->assertEquals(
             $client->getBaseURL()->withQuery('username=username&password=password'),

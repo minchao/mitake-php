@@ -6,6 +6,7 @@ use function GuzzleHttp\Psr7\build_query;
 use function GuzzleHttp\Psr7\uri_for;
 use Mitake\Exception\BadResponseException;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
@@ -64,15 +65,15 @@ class Client
      *
      * @param string $username
      * @param string $password
-     * @param ClientInterface $httpClient
+     * @param ClientInterface|null $httpClient
      */
-    public function __construct($username, $password, ClientInterface $httpClient)
+    public function __construct($username, $password, ClientInterface $httpClient = null)
     {
         $this->username = $username;
         $this->password = $password;
         $this->userAgent = self::DEFAULT_USER_AGENT;
         $this->baseURL = new Uri(self::DEFAULT_BASE_URL);
-        $this->httpClient = $httpClient;
+        $this->httpClient = $httpClient ?: new GuzzleHttpClient();
         $this->api = new API($this);
     }
 
@@ -97,6 +98,7 @@ class Client
      * @param string $password
      * @param ClientInterface $httpClient
      * @return Client
+     * @deprecated
      */
     public static function create($username, $password, ClientInterface $httpClient)
     {
