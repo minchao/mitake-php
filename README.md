@@ -25,9 +25,9 @@ composer require minchao/mitake-php
 
 ## 使用
 
-### 初始化 Mitake client
+### Mitake client
 
-使用靜態方法 Client::create() 建立 Mitake client，USERNAME 與 PASSWORD 請分別填入您申請的三竹簡訊帳號與密碼
+實例化 Mitake client，USERNAME 與 PASSWORD 請分別填入您申請的三竹簡訊帳號與密碼
 
 ```php
 <?php
