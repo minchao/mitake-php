@@ -37,7 +37,7 @@ class MessageStatus extends Command
         $ids = explode(',', $input->getOption('msgids'));
 
         $client = $this->createClient($input);
-        $resp = $client->getAPI()->queryMessageStatus($ids);
+        $resp = $client->queryMessageStatus($ids);
 
         $output->writeln(json_encode($resp->toArray(), JSON_PRETTY_PRINT));
     }

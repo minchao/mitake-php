@@ -14,6 +14,12 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class Client
  * @package Mitake
+ *
+ * @method Message\Response send(Message\Message $message)
+ * @method Message\Response sendBatch(array $messages)
+ * @method integer queryAccountPoint()
+ * @method Message\StatusResponse queryMessageStatus(array $ids)
+ * @method Message\StatusResponse cancelMessageStatus(array $ids)
  */
 class Client
 {
@@ -68,6 +74,20 @@ class Client
         $this->baseURL = new Uri(self::DEFAULT_BASE_URL);
         $this->httpClient = $httpClient;
         $this->api = new API($this);
+    }
+
+    /**
+     * @param string $method
+     * @param array $arguments
+     * @return mixed
+     */
+    public function __call($method, $arguments)
+    {
+        if (!method_exists($this->api, $method)) {
+            throw new \BadMethodCallException(sprintf('Method "%s" not found', $method));
+        }
+
+        return $this->getAPI()->$method(...$arguments);
     }
 
     /**

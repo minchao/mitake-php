@@ -36,7 +36,7 @@ AccountPoint=98';
         $httpClient = $this->createMockHttpClient($resp);
 
         $client = Client::create('', '', $httpClient);
-        $actual = $client->getAPI()->sendBatch([
+        $actual = $client->sendBatch([
             (new Message\Message())
                 ->setDstaddr('0987654321')
                 ->setSmbody('Test 1'),
@@ -68,7 +68,7 @@ AccountPoint=98';
         $httpClient = $this->createMockHttpClient(new Response(200));
 
         $client = Client::create('', '', $httpClient);
-        $client->getAPI()->sendBatch(['TEST']);
+        $client->sendBatch(['TEST']);
     }
 
     public function testSend()
@@ -88,7 +88,7 @@ AccountPoint=99';
         $httpClient = $this->createMockHttpClient($resp);
 
         $client = Client::create('', '', $httpClient);
-        $actual = $client->getAPI()->send(
+        $actual = $client->send(
             (new Message\Message())
                 ->setDstaddr('0987654321')
                 ->setSmbody('Test 1')
@@ -118,7 +118,7 @@ AccountPoint=99';
         $httpClient = $this->createMockHttpClient($resp);
 
         $client = Client::create('', '', $httpClient);
-        $actual = $client->getAPI()->queryAccountPoint();
+        $actual = $client->queryAccountPoint();
 
         $this->assertEquals(100, $actual);
     }
@@ -138,7 +138,7 @@ AccountPoint=99';
         $httpClient = $this->createMockHttpClient($resp);
 
         $client = Client::create('', '', $httpClient);
-        $actual = $client->getAPI()->queryMessageStatus(['1010079522', '1010079523']);
+        $actual = $client->queryMessageStatus(['1010079522', '1010079523']);
 
         $expected = (new Message\StatusResponse())
             ->addStatus(
@@ -172,7 +172,7 @@ AccountPoint=99';
         $httpClient = $this->createMockHttpClient($resp);
 
         $client = Client::create('', '', $httpClient);
-        $actual = $client->getAPI()->cancelMessageStatus(['1010079522', '1010079523']);
+        $actual = $client->cancelMessageStatus(['1010079522', '1010079523']);
 
         $expected = (new Message\StatusResponse())
             ->addStatus(

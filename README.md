@@ -46,7 +46,7 @@ $client = \Mitake\Client::create('USERNAME', 'PASSWORD', new \GuzzleHttp\Client(
 查詢目前的帳戶剩餘點數
 
 ```php
-$resp = $client->getAPI()->queryAccountPoint();
+$resp = $client->queryAccountPoint();
 ```
 
 ### 發送單筆簡訊
@@ -57,7 +57,7 @@ $resp = $client->getAPI()->queryAccountPoint();
 $message = (new \Mitake\Message\Message())
     ->setDstaddr('0987654321')
     ->setSmbody('Hello, 世界');
-$resp = $client->getAPI()->send($message);
+$resp = $client->send($message);
 ```
 
 ### 發送多筆簡訊
@@ -65,7 +65,7 @@ $resp = $client->getAPI()->send($message);
 若要發送多筆簡訊，只需要在呼叫 API 的 sendBatch() 方法時，帶入欲發送的 **Message objects** 陣列
 
 ```php
-$resp = $client->getAPI()->sendBatch([$message1, $message2]);
+$resp = $client->sendBatch([$message1, $message2]);
 ```
 
 ### 查詢簡訊發送狀態
@@ -73,7 +73,7 @@ $resp = $client->getAPI()->sendBatch([$message1, $message2]);
 查詢時請帶入簡訊發送後返回的 msgid
 
 ```php
-$resp = $client->getAPI()->queryMessageStatus(['MESSAGE_ID1', 'MESSAGE_ID2]);
+$resp = $client->queryMessageStatus(['MESSAGE_ID1', 'MESSAGE_ID2]);
 ```
 
 ### 使用 webhook 接收傳送狀態

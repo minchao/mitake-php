@@ -25,6 +25,6 @@ class Balance extends Command
     {
         $client = $this->createClient($input);
 
-        $output->writeln($client->getAPI()->queryAccountPoint());
+        $output->writeln($client->queryAccountPoint());
     }
 }

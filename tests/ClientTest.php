@@ -27,6 +27,15 @@ class ClientTest extends TestCase
         $this->assertEquals(new Uri('BaseURL'), $client->setBaseURL(new Uri('BaseURL'))->getBaseURL());
     }
 
+    public function testShouldThrowBadMethodCallExceptionWhenCallNotExistsMethodInClient()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "badMethod" not found');
+
+        $client = new Client('username', 'password', new \GuzzleHttp\Client());
+        $client->badMethod();
+    }
+
     public function testSendWithEmptyResponseBody()
     {
         $this->expectException(BadResponseException::class);

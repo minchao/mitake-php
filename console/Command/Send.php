@@ -74,7 +74,7 @@ class Send extends Command
             $message->setResponse($input->getOption('response'));
         }
 
-        $resp = $client->getAPI()->send($message);
+        $resp = $client->send($message);
 
         $output->writeln(json_encode($resp->toArray(), JSON_PRETTY_PRINT));
     }
