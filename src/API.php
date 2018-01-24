@@ -31,6 +31,7 @@ class API
      *
      * @param array $messages
      * @return Message\Response
+     * @throws Exception\BadResponseException
      * @throws InvalidArgumentException
      */
     public function sendBatch(array $messages)
@@ -64,6 +65,8 @@ class API
      *
      * @param Message\Message $message
      * @return Message\Response
+     * @throws Exception\BadResponseException
+     * @throws InvalidArgumentException
      */
     public function send(Message\Message $message)
     {
@@ -74,6 +77,7 @@ class API
      * Retrieve your account balance
      *
      * @return integer
+     * @throws Exception\BadResponseException
      */
     public function queryAccountPoint()
     {
@@ -94,6 +98,8 @@ class API
      *
      * @param array $ids
      * @return Message\StatusResponse
+     * @throws Exception\BadResponseException
+     * @throws InvalidArgumentException
      */
     public function queryMessageStatus(array $ids)
     {
@@ -110,6 +116,8 @@ class API
     /**
      * @param array $ids
      * @return Message\StatusResponse
+     * @throws Exception\BadResponseException
+     * @throws InvalidArgumentException
      */
     public function cancelMessageStatus(array $ids)
     {
@@ -136,6 +144,7 @@ class API
     /**
      * @param ResponseInterface $response
      * @return Message\Response
+     * @throws InvalidArgumentException
      */
     protected function parseMessageResponse(ResponseInterface $response)
     {
@@ -161,6 +170,7 @@ class API
     /**
      * @param ResponseInterface $response
      * @return Message\StatusResponse
+     * @throws InvalidArgumentException
      */
     protected function parseMessageStatusResponse(ResponseInterface $response)
     {
@@ -185,6 +195,7 @@ class API
     /**
      * @param ResponseInterface $response
      * @return Message\StatusResponse
+     * @throws InvalidArgumentException
      */
     protected function parseCancelMessageStatusResponse(ResponseInterface $response)
     {

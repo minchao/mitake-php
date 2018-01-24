@@ -148,6 +148,7 @@ class Client
      *
      * @param Request $request
      * @return ResponseInterface
+     * @throws BadResponseException
      */
     public function sendRequest(Request $request)
     {
