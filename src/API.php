@@ -54,7 +54,7 @@ class API
             $body
         );
 
-        $response = $this->client->send($request);
+        $response = $this->client->sendRequest($request);
 
         return $this->parseMessageResponse($response);
     }
@@ -82,7 +82,7 @@ class API
             $this->client->buildUriWithQuery('/SmQueryGet.asp')
         );
 
-        $response = $this->client->send($request);
+        $response = $this->client->sendRequest($request);
         $contents = $response->getBody()->getContents();
         $data = explode("=", $contents);
 
@@ -102,7 +102,7 @@ class API
             $this->client->buildUriWithQuery('/SmQueryGet.asp', ['msgid' => implode(',', $ids)])
         );
 
-        $response = $this->client->send($request);
+        $response = $this->client->sendRequest($request);
 
         return $this->parseMessageStatusResponse($response);
     }
@@ -118,7 +118,7 @@ class API
             $this->client->buildUriWithQuery('/SmCancel.asp', ['msgid' => implode(",", $ids)])
         );
 
-        $response = $this->client->send($request);
+        $response = $this->client->sendRequest($request);
 
         return $this->parseCancelMessageStatusResponse($response);
     }

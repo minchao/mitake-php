@@ -127,7 +127,7 @@ class Client
      * @param Request $request
      * @return ResponseInterface
      */
-    public function send(Request $request)
+    public function sendRequest(Request $request)
     {
         $response = $this->httpClient->send($request);
 

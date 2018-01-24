@@ -35,7 +35,7 @@ class ClientTest extends TestCase
         $httpClient = $this->createMockHttpClient(new Response(200));
 
         $client = Client::create('', '', $httpClient);
-        $client->send(new Request('GET', '/'));
+        $client->sendRequest(new Request('GET', '/'));
     }
 
     public function testSendWithUnexpectedStatusCode()
@@ -46,7 +46,7 @@ class ClientTest extends TestCase
         $httpClient = $this->createMockHttpClient(new Response(301));
 
         $client = Client::create('', '', $httpClient);
-        $client->send(new Request('GET', '/'));
+        $client->sendRequest(new Request('GET', '/'));
     }
 
     public function testBuildQuery()
