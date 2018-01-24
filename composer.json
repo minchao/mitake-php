@@ -6,7 +6,8 @@
     "mitake",
     "api",
     "sms",
-    "sms-sdk"
+    "sms-sdk",
+    "taiwan-sms"
   ],
   "homepage": "https://github.com/minchao/mitake-php",
   "license": "MIT",
