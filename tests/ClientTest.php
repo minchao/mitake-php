@@ -58,17 +58,44 @@ class ClientTest extends TestCase
         $client->sendRequest(new Request('GET', '/'));
     }
 
-    public function testBuildQuery()
+    public function getBuildUriWithQueryCases()
+    {
+        return [
+            [
+                '',
+                [],
+                Client::DEFAULT_BASE_URL . '?username=username&password=password',
+            ],
+            [
+                '',
+                ['encoding' => 'UTF8'],
+                Client::DEFAULT_BASE_URL . '?username=username&password=password&encoding=UTF8',
+            ],
+            [
+                'path/sub',
+                ['encoding' => 'UTF8'],
+                Client::DEFAULT_BASE_URL . '/path/sub?username=username&password=password&encoding=UTF8',
+            ],
+            [
+                Client::DEFAULT_BASE_URL . '/path/sub',
+                ['encoding' => 'UTF8'],
+                Client::DEFAULT_BASE_URL . '/path/sub?username=username&password=password&encoding=UTF8',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getBuildUriWithQueryCases
+     * @param string $uri
+     * @param array $queryParams
+     * @param string $expected
+     */
+    public function testBuildUriWithQuery($uri, $queryParams, $expected)
     {
         $client = $this->createClient();
 
-        $this->assertEquals(
-            $client->getBaseURL()->withQuery('username=username&password=password'),
-            $client->buildUriWithQuery('', [])
-        );
-        $this->assertEquals(
-            $client->getBaseURL()->withQuery('username=username&password=password&encoding=UTF8'),
-            $client->buildUriWithQuery('', ['encoding' => 'UTF8'])
-        );
+        $actual = $client->buildUriWithQuery($uri, $queryParams)->__toString();
+
+        $this->assertEquals($expected, $actual);
     }
 }

@@ -170,6 +170,8 @@ class Client
      */
     public function newRequest($method, $uri, $contentType = null, $body = null)
     {
+        // TODO $uri whitelist (trusted domain)
+
         $headers = [
             'User-Agent' => $this->userAgent,
         ];
