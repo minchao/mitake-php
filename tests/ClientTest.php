@@ -19,7 +19,7 @@ class ClientTest extends TestCase
 
     public function testCreate()
     {
-        $client = new Client('username', 'password', new \GuzzleHttp\Client());
+        $client = $this->createClient();
 
         $this->assertEquals(Client::DEFAULT_USER_AGENT, $client->getUserAgent());
         $this->assertEquals('UserAgent', $client->setUserAgent('UserAgent')->getUserAgent());
@@ -32,7 +32,7 @@ class ClientTest extends TestCase
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage('Method "badMethod" not found');
 
-        $client = new Client('username', 'password', new \GuzzleHttp\Client());
+        $client = $this->createClient();
         $client->badMethod();
     }
 
@@ -43,7 +43,7 @@ class ClientTest extends TestCase
 
         $httpClient = $this->createMockHttpClient(new Response(200));
 
-        $client = new Client('', '', $httpClient);
+        $client = $this->createClient($httpClient);
         $client->sendRequest(new Request('GET', '/'));
     }
 
@@ -54,13 +54,13 @@ class ClientTest extends TestCase
 
         $httpClient = $this->createMockHttpClient(new Response(301));
 
-        $client = new Client('', '', $httpClient);
+        $client = $this->createClient($httpClient);
         $client->sendRequest(new Request('GET', '/'));
     }
 
     public function testBuildQuery()
     {
-        $client = new Client('username', 'password');
+        $client = $this->createClient();
 
         $this->assertEquals(
             $client->getBaseURL()->withQuery('username=username&password=password'),
