@@ -1,0 +1,65 @@
+build: false
+platform:
+  - x64
+clone_folder: c:\projects\mitake-php
+
+## Build matrix
+environment:
+  matrix:
+  - dependencies: highest
+    php_version: 7.0
+  - dependencies: highest
+    php_version: 7.1
+
+  project_directory: c:\projects\mitake-php
+  php_archive_directory: c:\tools\php-archive
+  php_directory: c:\tools\php
+  composer_directory: c:\tools\composer
+  composer_executable: c:\tools\composer\composer.phar
+
+cache:
+  - c:\tools\composer
+  - c:\tools\php-archive
+  - '%LOCALAPPDATA%\Composer'
+
+init:
+  - ps: $Env:PATH = $Env:php_directory + ';' + $Env:composer_directory + ';' + $Env:PATH
+  - ps: $Env:ANSICON = '121x90 (121x90)'
+
+install:
+  # Download requested PHP version
+  - ps: If ((Test-Path $Env:php_archive_directory) -eq $False) { New-Item -Path $Env:php_archive_directory -ItemType 'directory' }
+  - ps: $requested_php_version = %{If ($Env:dependencies -eq 'lowest') { $Env:php_version + '.0' } Else { (((choco search php --exact --all-versions -r | Select-String -pattern $Env:php_version) -replace '[php|]', '') | %{ New-Object System.Version $_ } | Sort-Object | Select-Object -Last 1).ToString() }}
+  - ps: $requested_php_vc = %{If ($Env:php_version -eq '7.2') { 'VC15' } Else { 'VC14' }}
+  - ps: $php_version_url = %{If ($Env:dependencies -eq 'lowest') { 'http://windows.php.net/downloads/releases/archives/php-' + $requested_php_version + '-nts-Win32-' + $requested_php_vc +'-' + $Env:platform + '.zip' } Else { 'http://windows.php.net/downloads/releases/php-' + $requested_php_version + '-nts-Win32-' + $requested_php_vc + '-' + $Env:platform + '.zip' }}
+  - ps: $php_version_file = $Env:php_archive_directory + '\php-' + $requested_php_version + '.zip'
+  - ps: If ((Test-Path $php_version_file) -eq $False) { appveyor-retry appveyor DownloadFile $php_version_url -FileName $php_version_file }
+
+  # Prepare PHP
+  - ps: New-Item -Path $Env:php_directory -ItemType 'directory'
+  - ps: cd $Env:php_directory
+  - ps: 7z x $php_version_file
+  - ps: Copy-Item php.ini-production -Destination php.ini
+  - ps: Add-Content -Path php.ini -Value 'memory_limit=1G'
+  - ps: Add-Content -Path php.ini -Value 'date.timezone="UTC"'
+  - ps: Add-Content -Path php.ini -Value 'extension_dir=ext'
+  - ps: Add-Content -Path php.ini -Value 'extension=php_curl.dll'
+  - ps: Add-Content -Path php.ini -Value 'extension=php_intl.dll'
+  - ps: Add-Content -Path php.ini -Value 'extension=php_mbstring.dll'
+  - ps: Add-Content -Path php.ini -Value 'extension=php_openssl.dll'
+  - ps: php --version
+
+  # Prepare composer
+  - ps: If ((Test-Path $Env:composer_directory) -eq $False) { New-Item -Path $Env:composer_directory -ItemType 'directory' }
+  - ps: If ((Test-Path $Env:composer_executable) -eq $False) { appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -FileName $Env:composer_executable }
+  - ps: Set-Content -Path ($Env:composer_directory + '\composer.bat') -Value ('@php ' + $Env:composer_executable + ' %*')
+  - composer self-update
+
+  # Install dependencies
+  - ps: cd $Env:project_directory
+  - IF %dependencies%==highest composer update --no-interaction --no-progress
+
+test_script:
+  - ps: cd $Env:project_directory
+  - composer run cs-check
+  - composer run coverage
