@@ -8,8 +8,13 @@ php:
 
 sudo: false
 
-before_install:
-  - composer install
+cache:
+  directories:
+  - $HOME/.composer/cache/files
+
+install:
+  - composer install --prefer-dist
+
 script:
   - composer run cs-check
   - composer run coverage
