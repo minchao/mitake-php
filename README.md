@@ -8,7 +8,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/minchao/mitake-php/v/unstable)](https://packagist.org/packages/minchao/mitake-php)
 [![composer.lock](https://poser.pugx.org/minchao/mitake-php/composerlock)](https://packagist.org/packages/minchao/mitake-php)
 
-mitake-php 是[三竹簡訊](https://sms.mitake.com.tw/) SMS HTTP API 的非官方 PHP Client SDK （僅支援台灣行動電話號碼），使用這個 SDK 前，
+mitake-php 是[三竹簡訊](https://sms.mitake.com.tw/) SMS HTTP API 的非官方 PHP Client SDK（僅支援台灣行動電話號碼），使用這個 SDK 前，
 請確認您已申請三竹簡訊 HTTP Function Call 功能
 
 ## 執行環境
@@ -18,10 +18,10 @@ mitake-php 是[三竹簡訊](https://sms.mitake.com.tw/) SMS HTTP API 的非官�
 
 ## 安裝
 
-推薦使用 [Composer](https://getcomposer.org/) 安裝 mitake-php library
+推薦使用 [Composer](https://getcomposer.org/) 安裝 mitake-php
 
 ```
-composer require minchao/mitake-php
+$ composer require minchao/mitake-php
 ```
 
 ## 使用
@@ -186,7 +186,7 @@ webhook | 172.18.0.3 - - [01/Oct/2017:05:17:34 +0000] "GET /callback?msgid=12345
 執行 phpcs 與 phpunit 測試
 
 ```
-composer run-script test
+$ composer run check
 ```
 
 ## License
