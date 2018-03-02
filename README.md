@@ -9,7 +9,7 @@
 [![composer.lock](https://poser.pugx.org/minchao/mitake-php/composerlock)](https://packagist.org/packages/minchao/mitake-php)
 
 mitake-php 是[三竹簡訊](https://sms.mitake.com.tw/) SMS HTTP API 的非官方 PHP Client SDK（僅支援台灣行動電話號碼），使用這個 SDK 前，
-請確認您已申請三竹簡訊 HTTP Function Call 功能
+請確認您已申請三竹簡訊 HTTP Function Call 功能，若您想在 Laravel 下使用，請參考 [mitake-laravel](https://github.com/minchao/mitake-laravel) 提供的 Service provider
 
 ## 執行環境
 
