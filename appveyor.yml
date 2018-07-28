@@ -20,8 +20,9 @@ environment:
   composer_executable: c:\tools\composer\composer.phar
 
 cache:
+  - c:\ProgramData\chocolatey\bin -> appveyor.yml
+  - c:\ProgramData\chocolatey\lib -> appveyor.yml
   - c:\tools\composer
-  - c:\tools\php-archive
   - '%LOCALAPPDATA%\Composer'
 
 init:
@@ -29,18 +30,9 @@ init:
   - ps: $Env:ANSICON = '121x90 (121x90)'
 
 install:
-  # Download requested PHP version
-  - ps: If ((Test-Path $Env:php_archive_directory) -eq $False) { New-Item -Path $Env:php_archive_directory -ItemType 'directory' }
-  - ps: $requested_php_version = %{If ($Env:dependencies -eq 'lowest') { $Env:php_version + '.0' } Else { (((choco search php --exact --all-versions -r | Select-String -pattern $Env:php_version) -replace '[php|]', '') | %{ New-Object System.Version $_ } | Sort-Object | Select-Object -Last 1).ToString() }}
-  - ps: $requested_php_vc = %{If ($Env:php_version -eq '7.2') { 'VC15' } Else { 'VC14' }}
-  - ps: $php_version_url = %{If ($Env:dependencies -eq 'lowest') { 'http://windows.php.net/downloads/releases/archives/php-' + $requested_php_version + '-nts-Win32-' + $requested_php_vc +'-' + $Env:platform + '.zip' } Else { 'http://windows.php.net/downloads/releases/php-' + $requested_php_version + '-nts-Win32-' + $requested_php_vc + '-' + $Env:platform + '.zip' }}
-  - ps: $php_version_file = $Env:php_archive_directory + '\php-' + $requested_php_version + '.zip'
-  - ps: If ((Test-Path $php_version_file) -eq $False) { appveyor-retry appveyor DownloadFile $php_version_url -FileName $php_version_file }
-
-  # Prepare PHP
-  - ps: New-Item -Path $Env:php_directory -ItemType 'directory'
+  # Install requested PHP version
+  - ps: appveyor-retry cinst --params ('/InstallDir:' + $Env:php_directory) --ignore-checksums -y php --version ((choco search php --exact --all-versions -r | select-string -pattern $Env:php_version | sort { [version]($_ -split '\|' | select -last 1) } -Descending | Select-Object -first 1) -replace '[php|]','')
   - ps: cd $Env:php_directory
-  - ps: 7z x $php_version_file
   - ps: Copy-Item php.ini-production -Destination php.ini
   - ps: Add-Content -Path php.ini -Value 'memory_limit=1G'
   - ps: Add-Content -Path php.ini -Value 'date.timezone="UTC"'
@@ -65,3 +57,4 @@ test_script:
   - ps: cd $Env:project_directory
   - composer run cs-check
   - composer run coverage
+  
