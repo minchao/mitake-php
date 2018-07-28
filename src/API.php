@@ -29,10 +29,11 @@ class API
     /**
      * Send multiple SMS
      *
-     * @param array $messages
+     * @param Message\Message[] $messages
      * @return Message\Response
      * @throws Exception\BadResponseException
      * @throws InvalidArgumentException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function sendBatch(array $messages)
     {
@@ -67,6 +68,7 @@ class API
      * @return Message\Response
      * @throws Exception\BadResponseException
      * @throws InvalidArgumentException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function send(Message\Message $message)
     {
@@ -78,6 +80,7 @@ class API
      *
      * @return integer
      * @throws Exception\BadResponseException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function queryAccountPoint()
     {
@@ -96,10 +99,11 @@ class API
     /**
      * Fetch the status of specific messages
      *
-     * @param array $ids
+     * @param string[] $ids
      * @return Message\StatusResponse
      * @throws Exception\BadResponseException
      * @throws InvalidArgumentException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function queryMessageStatus(array $ids)
     {
@@ -114,10 +118,11 @@ class API
     }
 
     /**
-     * @param array $ids
+     * @param string[] $ids
      * @return Message\StatusResponse
      * @throws Exception\BadResponseException
      * @throws InvalidArgumentException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function cancelMessageStatus(array $ids)
     {

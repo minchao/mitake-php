@@ -9,7 +9,7 @@ namespace Mitake\Message;
 class Response
 {
     /**
-     * @var array Result
+     * @var Result[] Results
      */
     protected $results = [];
 
@@ -19,7 +19,7 @@ class Response
     protected $accountPoint;
 
     /**
-     * @return array
+     * @return Result[]
      */
     public function getResults()
     {
@@ -27,7 +27,7 @@ class Response
     }
 
     /**
-     * @param array $results
+     * @param Result[] $results
      * @return $this
      */
     public function setResults($results)

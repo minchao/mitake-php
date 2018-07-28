@@ -9,12 +9,12 @@ namespace Mitake\Message;
 class StatusResponse
 {
     /**
-     * @var array Status
+     * @var Status[] Status
      */
     protected $statuses = [];
 
     /**
-     * @return array
+     * @return Status[]
      */
     public function getStatuses()
     {
@@ -22,7 +22,7 @@ class StatusResponse
     }
 
     /**
-     * @param array $statuses
+     * @param Status[] $statuses
      * @return $this
      */
     public function setStatuses($statuses)

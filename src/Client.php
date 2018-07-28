@@ -149,6 +149,7 @@ class Client
      * @param Request $request
      * @return ResponseInterface
      * @throws BadResponseException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function sendRequest(Request $request)
     {
