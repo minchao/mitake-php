@@ -63,7 +63,7 @@ $resp = $client->send($message);
 
 ### 發送多筆簡訊
 
-若要發送多筆簡訊，只需要在呼叫 API 的 sendBatch() 方法時，帶入欲發送的 **Message objects** 陣列
+若要一次發送多筆簡訊，請先建立欲發送的 **Message objects** 陣列，再呼叫 API 的 sendBatch() 方法發送
 
 ```php
 $resp = $client->sendBatch([$message1, $message2]);
