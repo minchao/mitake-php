@@ -182,6 +182,50 @@ AccountPoint=98';
         $this->assertEquals($expected, $actual);
     }
 
+    public function testSendLongMessage()
+    {
+        $body = '[0]
+msgid=1010079522
+statuscode=1
+AccountPoint=99';
+        $resp = new Response(
+            200,
+            [
+                'Content-Type' => 'text/plain',
+            ],
+            $body
+        );
+
+        $httpClient = $this->createMockHttpClient($resp);
+        $client = $this->createClient($httpClient);
+
+        $actual = $client->sendLongMessage(
+            (new Message\LongMessage())
+                ->setDstaddr('0987654321')
+                ->setSmbody('Test 1')
+        );
+
+        $expected = (new Message\Response())
+            ->addResult(
+                (new Message\Result())
+                    ->setMsgid('1010079522')
+                    ->setStatuscode(new Message\StatusCode('1'))
+            )
+            ->setAccountPoint(99);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSendLongMessageBatchWithInvalidArgumentException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $httpClient = $this->createMockHttpClient(new Response(200));
+        $client = $this->createClient($httpClient);
+
+        $client->sendLongMessageBatch([new Message\Message()]);
+    }
+
     public function testQueryAccountPoint()
     {
         $resp = new Response(

@@ -25,6 +25,10 @@ class ClientTest extends TestCase
         $this->assertEquals('UserAgent', $client->setUserAgent('UserAgent')->getUserAgent());
         $this->assertEquals(Client::DEFAULT_BASE_URL, $client->getBaseURL());
         $this->assertEquals(new Uri('BaseURL'), $client->setBaseURL(new Uri('BaseURL'))->getBaseURL());
+        $this->assertEquals(
+            new Uri('LongMessageBaseURL'),
+            $client->setLongMessageBaseURL(new Uri('LongMessageBaseURL'))->getLongMessageBaseURL()
+        );
     }
 
     public function testShouldThrowBadMethodCallExceptionWhenCallNotExistsMethodInClient()
