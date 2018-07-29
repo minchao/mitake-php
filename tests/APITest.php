@@ -2,9 +2,10 @@
 
 namespace Mitake\Tests;
 
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Request;
 use Mitake\Message;
 use Mitake\Exception\InvalidArgumentException;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -32,17 +33,31 @@ AccountPoint=98';
             $body
         );
 
-        $httpClient = $this->createMockHttpClient($resp);
+        $history = [];
+        $httpClient = $this->createMockHttpClient($resp, $history);
         $client = $this->createClient($httpClient);
 
         $actual = $client->sendBatch([
             (new Message\Message())
                 ->setDstaddr('0987654321')
-                ->setSmbody('Test 1'),
+                ->setSmbody('壓迫孕育反逆 / 反逆產生壓迫')
+                ->setDlvtime('60')
+                ->setVldtime('120')
+                ->setResponse('https://example.com/callback'),
             (new Message\Message())
                 ->setDstaddr('0987654322')
-                ->setSmbody('Test 2'),
+                ->setSmbody('須知反逆得到勝利時 / 社會纔能進步改革'),
         ]);
+
+        $expectedRequestBody = '[0]
+dstaddr=0987654321
+smbody=壓迫孕育反逆 / 反逆產生壓迫
+dlvtime=60
+vldtime=120
+response=https://example.com/callback
+[1]
+dstaddr=0987654322
+smbody=須知反逆得到勝利時 / 社會纔能進步改革';
 
         $expected = (new Message\Response())
             ->addResult(
@@ -57,6 +72,10 @@ AccountPoint=98';
             )
             ->setAccountPoint(98);
 
+        /** @var Request $request */
+        $request = $history[0]['request'];
+
+        $this->assertEquals($expectedRequestBody, $request->getBody()->getContents());
         $this->assertEquals($expected, $actual);
     }
 
