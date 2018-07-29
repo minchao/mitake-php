@@ -69,6 +69,25 @@ $resp = $client->send($message);
 $resp = $client->sendBatch([$message1, $message2]);
 ```
 
+### 發送單筆長簡訊
+
+發送長簡訊前，請先透過 LongMessage 類別建立簡訊內容，再呼叫 API 的 sendLongMessage() 方法發送
+
+```php
+$message = (new \Mitake\Message\LongMessage())
+    ->setDstaddr('0987654321')
+    ->setSmbody('Hello, 世界');
+$resp = $client->sendLongMessage($message);
+```
+
+### 發送多筆長簡訊
+
+若要一次發送多筆長簡訊，請先建立欲發送的 **LongMessage objects** 陣列，再呼叫 API 的 sendLongMessageBatch() 方法發送 
+
+```php
+$resp = $client->sendLongMessageBatch([$message1, $message2]);
+```
+
 ### 查詢簡訊發送狀態
 
 查詢時請帶入簡訊發送後返回的 msgid

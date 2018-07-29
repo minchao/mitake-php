@@ -76,6 +76,52 @@ class API
     }
 
     /**
+     * @param Message\LongMessage[] $messages
+     * @return Message\Response
+     * @throws Exception\BadResponseException
+     * @throws InvalidArgumentException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function sendLongMessageBatch(array $messages)
+    {
+        $body = '';
+        foreach ($messages as $message) {
+            if (!$message instanceof Message\LongMessage) {
+                throw new InvalidArgumentException();
+            }
+
+            $body .= $message->toINI();
+        }
+        $body = trim($body);
+
+        $request = $this->client->newRequest(
+            'POST',
+            $this->client->buildUriWithQuery(
+                $this->client->getLongMessageBaseURL() . '/SpLmPost',
+                ['Encoding_PostIn' => 'UTF8']
+            ),
+            'text/plain',
+            $body
+        );
+
+        $response = $this->client->sendRequest($request);
+
+        return $this->parseMessageResponse($response);
+    }
+
+    /**
+     * @param Message\LongMessage $message
+     * @return Message\Response
+     * @throws Exception\BadResponseException
+     * @throws InvalidArgumentException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function sendLongMessage(Message\LongMessage $message)
+    {
+        return $this->sendLongMessageBatch([$message]);
+    }
+
+    /**
      * Retrieve your account balance
      *
      * @return integer

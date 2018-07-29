@@ -18,15 +18,19 @@ use Psr\Http\Message\UriInterface;
  *
  * @method Message\Response send(Message\Message $message)
  * @method Message\Response sendBatch(array $messages)
+ * @method Message\Response sendLongMessage(Message\LongMessage $message)
+ * @method Message\Response sendLongMessageBatch(array $messages)
  * @method integer queryAccountPoint()
  * @method Message\StatusResponse queryMessageStatus(array $ids)
  * @method Message\StatusResponse cancelMessageStatus(array $ids)
  */
 class Client
 {
-    const LIBRARY_VERSION = '0.1.0';
+    const LIBRARY_VERSION = '0.2.0';
 
     const DEFAULT_BASE_URL = 'https://smexpress.mitake.com.tw:9601';
+
+    const DEFAULT_LONG_MESSAGE_BASE_URL = 'https://smexpress.mitake.com.tw:7102';
 
     const DEFAULT_USER_AGENT = 'mitake-php/' . self::LIBRARY_VERSION;
 
@@ -56,6 +60,11 @@ class Client
     protected $baseURL;
 
     /**
+     * @var UriInterface
+     */
+    protected $longMessageBaseURL;
+
+    /**
      * @var API
      */
     protected $api;
@@ -73,6 +82,7 @@ class Client
         $this->password = $password;
         $this->userAgent = self::DEFAULT_USER_AGENT;
         $this->baseURL = new Uri(self::DEFAULT_BASE_URL);
+        $this->longMessageBaseURL = new Uri(self::DEFAULT_LONG_MESSAGE_BASE_URL);
         $this->httpClient = $httpClient ?: new GuzzleHttpClient();
         $this->api = new API($this);
     }
@@ -139,6 +149,25 @@ class Client
     public function setBaseURL(UriInterface $baseURL)
     {
         $this->baseURL = $baseURL;
+
+        return $this;
+    }
+
+    /**
+     * @return UriInterface
+     */
+    public function getLongMessageBaseURL()
+    {
+        return $this->longMessageBaseURL;
+    }
+
+    /**
+     * @param UriInterface $longMessageBaseURL
+     * @return $this
+     */
+    public function setLongMessageBaseURL(UriInterface $longMessageBaseURL)
+    {
+        $this->longMessageBaseURL = $longMessageBaseURL;
 
         return $this;
     }

@@ -123,6 +123,65 @@ AccountPoint=99';
         $this->assertEquals($expected, $actual);
     }
 
+    public function testSendLongMessageBatch()
+    {
+        $body = '[1]
+msgid=#0299ECC0A
+statuscode=1
+[2]
+msgid=#0299ECD70
+statuscode=4
+AccountPoint=98';
+        $resp = new Response(
+            200,
+            [
+                'Content-Type' => 'text/plain',
+            ],
+            $body
+        );
+
+        $history = [];
+        $httpClient = $this->createMockHttpClient($resp, $history);
+        $client = $this->createClient($httpClient);
+
+        $actual = $client->sendLongMessageBatch([
+            (new Message\LongMessage())
+                ->setId('1')
+                ->setDstaddr('0987654321')
+                ->setDlvtime('60')
+                ->setVldtime('120')
+                ->setDestname('John')
+                ->setResponse('https://example.com/callback')
+                ->setSmbody('世間未許權存在，勇士當為義鬥爭。'),
+            (new Message\LongMessage())
+                ->setId('2')
+                ->setDstaddr('0987654322')
+                ->setSmbody('美麗島上經 / 散播了無限種子 / 自由的花、平等的樹 / 專待我們熱血來 / 培養起。'),
+        ]);
+
+        $expectedRequestBody = '1$$0987654321$$60$$120$$John$$https://example.com/callback$$世間未許權存在，勇士當為義鬥爭。
+2$$0987654322$$$$$$$$$$美麗島上經 / 散播了無限種子 / 自由的花、平等的樹 / 專待我們熱血來 / 培養起。';
+
+        $expected = (new Message\Response())
+            ->addResult(
+                (new Message\Result())
+                    ->setMsgid('#0299ECC0A')
+                    ->setStatuscode(new Message\StatusCode('1'))
+            )
+            ->addResult(
+                (new Message\Result())
+                    ->setMsgid('#0299ECD70')
+                    ->setStatuscode(new Message\StatusCode('4'))
+            )
+            ->setAccountPoint(98);
+
+        /** @var Request $request */
+        $request = $history[0]['request'];
+
+        $this->assertEquals($expectedRequestBody, $request->getBody()->getContents());
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testQueryAccountPoint()
     {
         $resp = new Response(
