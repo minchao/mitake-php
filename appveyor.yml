@@ -14,8 +14,7 @@ environment:
     php_version: 7.2
 
   project_directory: c:\projects\mitake-php
-  php_archive_directory: c:\tools\php-archive
-  php_directory: c:\tools\php
+  php_root_directory: c:\tools\php
   composer_directory: c:\tools\composer
   composer_executable: c:\tools\composer\composer.phar
 
