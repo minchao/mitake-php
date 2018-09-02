@@ -208,6 +208,22 @@ webhook | 172.18.0.3 - - [01/Oct/2017:05:17:34 +0000] "GET /callback?msgid=12345
 $ composer run check
 ```
 
+## FAQ
+
+Q: 遇到 curl 35 error
+
+A: 這是因為 OpenSSL 已不支援 TLS 1.1 以下版本，你可以自行評估風險決定是否使用 HTTP 傳輸資料。
+若選擇 http 的話可以照著下面的 example 設置:
+
+**warning : 請勿使用 HTTP 協議來傳送敏感資料，封包是明碼傳送，視同裸奔。使用已棄用的 TLS 同樣也會將敏感資料暴露在攻擊的風險之中。** 
+
+```php
+require_once __DIR__ . '/vendor/autoload.php';
+
+$client = new \Mitake\Client('USERNAME', 'PASSWORD');
+$client->useSecureBaseURL(false);
+```
+
 ## License
 
 See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
