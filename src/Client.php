@@ -158,25 +158,6 @@ class Client
     }
 
     /**
-     * @param bool $enable
-     * @return $this
-     */
-    public function useSecureBaseURL($enable = true)
-    {
-        if ($enable) {
-            $this->baseURL = new Uri(self::DEFAULT_BASE_URL);
-            $this->longMessageBaseURL = new Uri(self::DEFAULT_LONG_MESSAGE_BASE_URL);
-
-            return $this;
-        }
-
-        $this->baseURL = new Uri(self::DEFAULT_HTTP_BASE_URL);
-        $this->longMessageBaseURL = new Uri(self::DEFAULT_LONG_MESSAGE_HTTP_BASE_URL);
-
-        return $this;
-    }
-
-    /**
      * @return UriInterface
      */
     public function getLongMessageBaseURL()
@@ -191,6 +172,25 @@ class Client
     public function setLongMessageBaseURL(UriInterface $longMessageBaseURL)
     {
         $this->longMessageBaseURL = $longMessageBaseURL;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $enable
+     * @return $this
+     */
+    public function useSecureBaseURL($enable = true)
+    {
+        if ($enable) {
+            $this->baseURL = new Uri(self::DEFAULT_BASE_URL);
+            $this->longMessageBaseURL = new Uri(self::DEFAULT_LONG_MESSAGE_BASE_URL);
+
+            return $this;
+        }
+
+        $this->baseURL = new Uri(self::DEFAULT_HTTP_BASE_URL);
+        $this->longMessageBaseURL = new Uri(self::DEFAULT_LONG_MESSAGE_HTTP_BASE_URL);
 
         return $this;
     }
