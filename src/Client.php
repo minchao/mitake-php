@@ -26,7 +26,7 @@ use Psr\Http\Message\UriInterface;
  */
 class Client
 {
-    const LIBRARY_VERSION = '0.2.0';
+    const LIBRARY_VERSION = '0.3.0';
 
     const DEFAULT_BASE_URL = 'https://smexpress.mitake.com.tw:9601';
 
