@@ -102,4 +102,20 @@ class ClientTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    public function testUseSecureBaseURL()
+    {
+        $client = $this->createClient();
+        $client->useSecureBaseURL();
+
+        $this->assertEquals(Client::DEFAULT_BASE_URL, $client->getBaseURL());
+    }
+
+    public function testNoUseSecureBaseURL()
+    {
+        $client = $this->createClient();
+        $client->useSecureBaseURL(false);
+
+        $this->assertEquals(Client::DEFAULT_HTTP_BASE_URL, $client->getBaseURL());
+    }
 }

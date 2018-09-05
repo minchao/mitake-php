@@ -30,7 +30,11 @@ class Client
 
     const DEFAULT_BASE_URL = 'https://smexpress.mitake.com.tw:9601';
 
+    const DEFAULT_HTTP_BASE_URL = 'http://smexpress.mitake.com.tw:9600';
+
     const DEFAULT_LONG_MESSAGE_BASE_URL = 'https://smexpress.mitake.com.tw:7102';
+
+    const DEFAULT_LONG_MESSAGE_HTTP_BASE_URL = 'http://smexpress.mitake.com.tw:7002';
 
     const DEFAULT_USER_AGENT = 'mitake-php/' . self::LIBRARY_VERSION;
 
@@ -149,6 +153,25 @@ class Client
     public function setBaseURL(UriInterface $baseURL)
     {
         $this->baseURL = $baseURL;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $enable
+     * @return $this
+     */
+    public function useSecureBaseURL($enable = true)
+    {
+        if ($enable) {
+            $this->baseURL = new Uri(self::DEFAULT_BASE_URL);
+            $this->longMessageBaseURL = new Uri(self::DEFAULT_LONG_MESSAGE_BASE_URL);
+
+            return $this;
+        }
+
+        $this->baseURL = new Uri(self::DEFAULT_HTTP_BASE_URL);
+        $this->longMessageBaseURL = new Uri(self::DEFAULT_LONG_MESSAGE_HTTP_BASE_URL);
 
         return $this;
     }
