@@ -210,19 +210,11 @@ $ composer run check
 
 ## FAQ
 
-Q: 遇到 curl 35 error
+Q：遇到 `PHP Fatal error: Uncaught GuzzleHttp\Exception\ConnectException: cURL error 35`
 
-A: 這是因為 OpenSSL 已不支援 TLS 1.1 以下版本，你可以自行評估風險決定是否使用 HTTP 傳輸資料。
-若選擇 http 的話可以照著下面的 example 設置:
+A：這是因為 OpenSSL 已不支援 TLS 1.1 以下版本，建議使用[長簡訊方法](https://github.com/minchao/mitake-php#%E7%99%BC%E9%80%81%E5%96%AE%E7%AD%86%E9%95%B7%E7%B0%A1%E8%A8%8A)來傳送簡訊，請參考 Issue [#4](https://github.com/minchao/mitake-php/issues/4) 的說明。
 
-**warning : 請勿使用 HTTP 協議來傳送敏感資料，封包是明碼傳送，視同裸奔。使用已棄用的 TLS 同樣也會將敏感資料暴露在攻擊的風險之中。** 
-
-```php
-require_once __DIR__ . '/vendor/autoload.php';
-
-$client = new \Mitake\Client('USERNAME', 'PASSWORD');
-$client->useSecureBaseURL(false);
-```
+**注意：使用 HTTP 或已棄用的 TLS 協議來傳送簡訊，會將傳輸資料暴露外洩的風險之中。** 
 
 ## License
 
