@@ -1,23 +1,23 @@
+sudo: false
 language: php
 
 php:
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-
-sudo: false
+- 5.6
+- 7.0
+- 7.1
+- 7.2
 
 cache:
   directories:
-    - $HOME/.composer/cache/files
+  - $HOME/.composer/cache/files
+  - vendor
 
 install:
-  - composer install --prefer-dist
+- composer install --prefer-dist
 
 script:
-  - composer run cs-check
-  - composer run coverage
+- composer run cs-check
+- composer run coverage
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
