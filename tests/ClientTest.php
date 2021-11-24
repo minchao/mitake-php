@@ -76,10 +76,15 @@ class ClientTest extends TestCase
                 Client::DEFAULT_BASE_URL . '?username=username&password=password&encoding=UTF8',
             ],
             [
-                'path/sub',
+                '/path/sub',
                 ['encoding' => 'UTF8'],
                 Client::DEFAULT_BASE_URL . '/path/sub?username=username&password=password&encoding=UTF8',
             ],
+            // [
+            //     'path/sub',
+            //     ['encoding' => 'UTF8'],
+            //     Client::DEFAULT_BASE_URL . '/path/sub?username=username&password=password&encoding=UTF8',
+            // ],
             [
                 Client::DEFAULT_BASE_URL . '/path/sub',
                 ['encoding' => 'UTF8'],
