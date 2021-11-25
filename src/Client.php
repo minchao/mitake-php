@@ -26,15 +26,15 @@ use Psr\Http\Message\UriInterface;
  */
 class Client
 {
-    const LIBRARY_VERSION = '0.3.0';
+    const LIBRARY_VERSION = '0.4.0';
 
-    const DEFAULT_BASE_URL = 'https://smexpress.mitake.com.tw:9601';
+    const DEFAULT_BASE_URL = 'https://smsapi.mitake.com.tw';
 
-    const DEFAULT_HTTP_BASE_URL = 'http://smexpress.mitake.com.tw:9600';
+    const DEFAULT_HTTP_BASE_URL = 'http://smsapi.mitake.com.tw';
 
-    const DEFAULT_LONG_MESSAGE_BASE_URL = 'https://smexpress.mitake.com.tw:7102';
+    const DEFAULT_LONG_MESSAGE_BASE_URL = 'https://smsapi.mitake.com.tw';
 
-    const DEFAULT_LONG_MESSAGE_HTTP_BASE_URL = 'http://smexpress.mitake.com.tw:7002';
+    const DEFAULT_LONG_MESSAGE_HTTP_BASE_URL = 'http://smsapi.mitake.com.tw';
 
     const DEFAULT_USER_AGENT = 'mitake-php/' . self::LIBRARY_VERSION;
 
