@@ -1,6 +1,6 @@
 # mitake-php
 
-[![Build Status](https://travis-ci.org/minchao/mitake-php.svg?branch=master)](https://travis-ci.org/minchao/mitake-php)
+[![Continuous Integration](https://github.com/minchao/mitake-php/actions/workflows/continuous-integration.yml/badge.svg?branch=master)](https://github.com/minchao/mitake-php/actions/workflows/continuous-integration.yml)
 [![Build status](https://ci.appveyor.com/api/projects/status/sg0uce4i30p5dxf2/branch/master?svg=true&passingText=Windows%20-%20OK)](https://ci.appveyor.com/project/minchao/mitake-php/branch/master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1b7b6ee48e884e6aa48d76605871ba83)](https://www.codacy.com/app/minchao/mitake-php?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=minchao/mitake-php&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/minchao/mitake-php/branch/master/graph/badge.svg)](https://codecov.io/gh/minchao/mitake-php)
@@ -82,7 +82,7 @@ $resp = $client->sendLongMessage($message);
 
 ### 發送多筆長簡訊
 
-若要一次發送多筆長簡訊，請先建立欲發送的 **LongMessage objects** 陣列，再呼叫 API 的 sendLongMessageBatch() 方法發送 
+若要一次發送多筆長簡訊，請先建立欲發送的 **LongMessage objects** 陣列，再呼叫 API 的 sendLongMessageBatch() 方法發送
 
 ```php
 $resp = $client->sendLongMessageBatch([$message1, $message2]);
@@ -113,7 +113,7 @@ $resp = $client->cancelMessageStatus(['MESSAGE_ID1', 'MESSAGE_ID2]);
 
 ```php
 $message->setResponse('https://your.domain.name/callback');
-``` 
+```
 
 建立 webhook：
 
@@ -214,7 +214,7 @@ Q：遇到 `PHP Fatal error: Uncaught GuzzleHttp\Exception\ConnectException: cUR
 
 A：這是因為 OpenSSL 已不支援 TLS 1.1 以下版本，建議使用[長簡訊方法](https://github.com/minchao/mitake-php#%E7%99%BC%E9%80%81%E5%96%AE%E7%AD%86%E9%95%B7%E7%B0%A1%E8%A8%8A)來傳送簡訊，請參考 Issue [#4](https://github.com/minchao/mitake-php/issues/4) 的說明。
 
-**注意：使用 HTTP 或已棄用的 TLS 協議來傳送簡訊，會將傳輸資料暴露外洩的風險之中。** 
+**注意：使用 HTTP 或已棄用的 TLS 協議來傳送簡訊，會將傳輸資料暴露外洩的風險之中。**
 
 ## License
 
