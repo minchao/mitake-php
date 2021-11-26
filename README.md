@@ -1,7 +1,6 @@
 # mitake-php
 
 [![Continuous Integration](https://github.com/minchao/mitake-php/actions/workflows/continuous-integration.yml/badge.svg?branch=master)](https://github.com/minchao/mitake-php/actions/workflows/continuous-integration.yml)
-[![Build status](https://ci.appveyor.com/api/projects/status/sg0uce4i30p5dxf2/branch/master?svg=true&passingText=Windows%20-%20OK)](https://ci.appveyor.com/project/minchao/mitake-php/branch/master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1b7b6ee48e884e6aa48d76605871ba83)](https://www.codacy.com/app/minchao/mitake-php?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=minchao/mitake-php&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/minchao/mitake-php/branch/master/graph/badge.svg)](https://codecov.io/gh/minchao/mitake-php)
 [![Latest Stable Version](https://poser.pugx.org/minchao/mitake-php/v/stable)](https://packagist.org/packages/minchao/mitake-php)
