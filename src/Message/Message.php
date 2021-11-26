@@ -152,4 +152,24 @@ class Message
 
         return $ini;
     }
+
+    public function toArray()
+    {
+        $param = [
+            'dstaddr' => $this->dstaddr,
+            'smbody' => $this->smbody,
+        ];
+
+        if (!empty($this->dlvtime)) {
+            $param['dlvtime'] = $this->dlvtime;
+        }
+        if (!empty($this->vldtime)) {
+            $param['vldtime'] = $this->vldtime;
+        }
+        if (!empty($this->response)) {
+            $param['response'] = $this->response;
+        }
+
+        return $param;
+    }
 }

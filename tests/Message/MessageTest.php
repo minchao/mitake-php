@@ -53,4 +53,23 @@ EOT;
 
         $this->assertEquals($expected, $obj->toINI());
     }
+
+    /**
+     * @depends testConstruct
+     * @param Message $obj
+     */
+    public function testToArray($obj)
+    {
+        $smBody = 'Hello,' . chr(6) . '世界';
+
+        $expected = [
+            'dstaddr' => '0987654321',
+            'smbody' => $smBody,
+            'dlvtime' => '60',
+            'vldtime' => '120',
+            'response' => 'https://example.com',
+        ];
+
+        $this->assertEquals($expected, $obj->toArray());
+    }
 }

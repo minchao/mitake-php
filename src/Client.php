@@ -2,8 +2,8 @@
 
 namespace Mitake;
 
-use function GuzzleHttp\Psr7\build_query;
-use function GuzzleHttp\Psr7\uri_for;
+use GuzzleHttp\Psr7\Query;
+use GuzzleHttp\Psr7\Utils;
 use Mitake\Exception\BadResponseException;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client as GuzzleHttpClient;
@@ -26,15 +26,15 @@ use Psr\Http\Message\UriInterface;
  */
 class Client
 {
-    const LIBRARY_VERSION = '0.3.0';
+    const LIBRARY_VERSION = '0.4.0';
 
-    const DEFAULT_BASE_URL = 'https://smexpress.mitake.com.tw:9601';
+    const DEFAULT_BASE_URL = 'https://smsapi.mitake.com.tw';
 
-    const DEFAULT_HTTP_BASE_URL = 'http://smexpress.mitake.com.tw:9600';
+    const DEFAULT_HTTP_BASE_URL = 'http://smsapi.mitake.com.tw';
 
-    const DEFAULT_LONG_MESSAGE_BASE_URL = 'https://smexpress.mitake.com.tw:7102';
+    const DEFAULT_LONG_MESSAGE_BASE_URL = 'https://smsapi.mitake.com.tw';
 
-    const DEFAULT_LONG_MESSAGE_HTTP_BASE_URL = 'http://smexpress.mitake.com.tw:7002';
+    const DEFAULT_LONG_MESSAGE_HTTP_BASE_URL = 'http://smsapi.mitake.com.tw';
 
     const DEFAULT_USER_AGENT = 'mitake-php/' . self::LIBRARY_VERSION;
 
@@ -250,7 +250,7 @@ class Client
      */
     public function buildUriWithQuery($uri, array $params = [])
     {
-        $uri = uri_for($uri);
+        $uri = Utils::uriFor($uri);
 
         if (!Uri::isAbsolute($uri)) {
             $uri = $uri->withScheme($this->baseURL->getScheme())
@@ -264,7 +264,7 @@ class Client
             'password' => $this->password,
         ];
 
-        return $uri->withQuery(build_query(array_merge($default, $params)));
+        return $uri->withQuery(Query::build(array_merge($default, $params)));
     }
 
     /**

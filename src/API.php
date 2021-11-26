@@ -72,7 +72,15 @@ class API
      */
     public function send(Message\Message $message)
     {
-        return $this->sendBatch([$message]);
+        $request = $this->client->newRequest(
+            'POST',
+            $this->client->buildUriWithQuery('/api/mtk/SmSend', ['CharsetURL' => 'UTF-8'] + $message->toArray()),
+            'application/x-www-form-urlencoded'
+        );
+
+        $response = $this->client->sendRequest($request);
+
+        return $this->parseMessageResponse($response);
     }
 
     /**
