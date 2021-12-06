@@ -105,10 +105,10 @@ class API
         $request = $this->client->newRequest(
             'POST',
             $this->client->buildUriWithQuery(
-                $this->client->getLongMessageBaseURL() . '/SpLmPost',
+                $this->client->getLongMessageBaseURL() . '/api/mtk/SmBulkSend',
                 ['Encoding_PostIn' => 'UTF8']
             ),
-            'text/plain',
+            'application/x-www-form-urlencoded',
             $body
         );
 
