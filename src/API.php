@@ -162,8 +162,8 @@ class API
     public function queryMessageStatus(array $ids)
     {
         $request = $this->client->newRequest(
-            'GET',
-            $this->client->buildUriWithQuery('/SmQueryGet.asp', ['msgid' => implode(',', $ids)])
+            'POST',
+            $this->client->buildUriWithQuery('/api/mtk/SmQuery', ['msgid' => implode(',', $ids)])
         );
 
         $response = $this->client->sendRequest($request);
