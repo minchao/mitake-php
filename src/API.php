@@ -105,10 +105,10 @@ class API
         $request = $this->client->newRequest(
             'POST',
             $this->client->buildUriWithQuery(
-                $this->client->getLongMessageBaseURL() . '/SpLmPost',
+                $this->client->getLongMessageBaseURL() . '/api/mtk/SmBulkSend',
                 ['Encoding_PostIn' => 'UTF8']
             ),
-            'text/plain',
+            'application/x-www-form-urlencoded',
             $body
         );
 
@@ -139,8 +139,8 @@ class API
     public function queryAccountPoint()
     {
         $request = $this->client->newRequest(
-            'GET',
-            $this->client->buildUriWithQuery('/SmQueryGet.asp')
+            'POST',
+            $this->client->buildUriWithQuery('/api/mtk/SmQuery')
         );
 
         $response = $this->client->sendRequest($request);
@@ -162,8 +162,8 @@ class API
     public function queryMessageStatus(array $ids)
     {
         $request = $this->client->newRequest(
-            'GET',
-            $this->client->buildUriWithQuery('/SmQueryGet.asp', ['msgid' => implode(',', $ids)])
+            'POST',
+            $this->client->buildUriWithQuery('/api/mtk/SmQuery', ['msgid' => implode(',', $ids)])
         );
 
         $response = $this->client->sendRequest($request);
@@ -181,8 +181,8 @@ class API
     public function cancelMessageStatus(array $ids)
     {
         $request = $this->client->newRequest(
-            'GET',
-            $this->client->buildUriWithQuery('/SmCancel.asp', ['msgid' => implode(",", $ids)])
+            'POST',
+            $this->client->buildUriWithQuery('/api/mtk/SmCancel', ['msgid' => implode(",", $ids)])
         );
 
         $response = $this->client->sendRequest($request);
