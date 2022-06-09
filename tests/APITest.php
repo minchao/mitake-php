@@ -49,15 +49,8 @@ AccountPoint=98';
                 ->setSmbody('須知反逆得到勝利時 / 社會纔能進步改革'),
         ]);
 
-        $expectedRequestBody = '[0]
-dstaddr=0987654321
-smbody=壓迫孕育反逆 / 反逆產生壓迫
-dlvtime=60
-vldtime=120
-response=https://example.com/callback
-[1]
-dstaddr=0987654322
-smbody=須知反逆得到勝利時 / 社會纔能進步改革';
+        $expectedRequestBody = '1$$0987654321$$60$$120$$$$https://example.com/callback$$壓迫孕育反逆 / 反逆產生壓迫
+2$$0987654322$$$$$$$$$$須知反逆得到勝利時 / 社會纔能進步改革';
 
         $expected = (new Message\Response())
             ->addResult(

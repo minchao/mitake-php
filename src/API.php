@@ -37,28 +37,24 @@ class API
      */
     public function sendBatch(array $messages)
     {
-        $body = '';
+        $longMessages = [];
+
         /** @var Message\Message $message */
         foreach ($messages as $i => $message) {
             if (!$message instanceof Message\Message) {
                 throw new InvalidArgumentException();
             }
 
-            $body .= "[{$i}]\n";
-            $body .= $message->toINI();
+            $longMessages[] = (new Message\LongMessage)
+                ->setId($i + 1)
+                ->setDstaddr($message->getDstaddr())
+                ->setSmbody($message->getSmbody())
+                ->setDlvtime($message->getDlvtime())
+                ->setVldtime($message->getVldtime())
+                ->setResponse($message->getResponse());
         }
-        $body = trim($body);
 
-        $request = $this->client->newRequest(
-            'POST',
-            $this->client->buildUriWithQuery('/SmSendPost.asp', ['encoding' => 'UTF8']),
-            'text/plain',
-            $body
-        );
-
-        $response = $this->client->sendRequest($request);
-
-        return $this->parseMessageResponse($response);
+        return $this->sendLongMessageBatch($longMessages);
     }
 
     /**
